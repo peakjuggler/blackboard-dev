@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://hnags4ynh1aa"]
+
+[ext_resource type="Texture2D" uid="uid://bqv0wrmm4iqro" path="res://doritos_PNG45.png" id="1_1yaxi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kmkxu"]
+size = Vector2(69, 74)
+
+[node name="dorito" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_1yaxi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, -4)
+shape = SubResource("RectangleShape2D_kmkxu")

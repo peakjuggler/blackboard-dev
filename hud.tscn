@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://clg0olrc3pcld"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_nliop"]
+[ext_resource type="LabelSettings" uid="uid://dx55rv43tgx8g" path="res://hud.tres" id="2_bjjxw"]
+
+[node name="HUD" type="CanvasGroup"]
+script = ExtResource("1_nliop")
+
+[node name="LIMIT" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0.54902)
+show_behind_parent = true
+visibility_layer = 2
+z_index = 1
+offset_left = 64.0
+offset_top = -32.0
+offset_right = 371.0
+offset_bottom = 26.0
+text = "LIMIT:"
+label_settings = ExtResource("2_bjjxw")
+
+[node name="SPEED" type="Label" parent="."]
+offset_left = 65.0001
+offset_top = 687.0
+offset_right = 214.0
+offset_bottom = 745.0
+text = "SPEED: "
+label_settings = ExtResource("2_bjjxw")
+
+[node name="BOOST" type="ProgressBar" parent="."]
+offset_left = 593.0
+offset_top = 751.0
+offset_right = 639.0
+offset_bottom = 1280.0
+rotation = 1.57079
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 14
+max_value = 3.0
+value = 3.0
+fill_mode = 3
+
+[node name="SAND" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = 593.0
+offset_top = 807.0
+offset_right = 611.0
+offset_bottom = 1336.0
+rotation = 1.57079
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 3.5
+step = 0.0
+value = 3.496
+fill_mode = 3
+show_percentage = false
+
+[node name="warning" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="alertBox" type="Polygon2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(352, 613)
+scale = Vector2(0.313055, 0.319445)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(800, 432, 881.635, 432, 960, 432, 960, 576, 800, 576)
+
+[connection signal="timeout" from="warning" to="." method="_on_warning_timeout"]

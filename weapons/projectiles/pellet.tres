@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Projectile" load_steps=3 format=3 uid="uid://crmv6fyooug17"]
+
+[ext_resource type="Texture2D" uid="uid://bpff8lihjid2w" path="res://tuff.PNG" id="1_6hs2y"]
+[ext_resource type="Script" path="res://weapons/projectiles/projectile.gd" id="2_po47f"]
+
+[resource]
+script = ExtResource("2_po47f")
+display_name = &"Pellet"
+icon = ExtResource("1_6hs2y")

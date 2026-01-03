@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfpie5hvsdoqr"]
+
+[ext_resource type="PackedScene" uid="uid://dpe6d5p5pw5cu" path="res://hud.tscn" id="1_56qer"]
+[ext_resource type="Texture2D" uid="uid://ciedp15lkgsb8" path="res://icon.svg" id="2_8kyus"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_618w4"]
+size = Vector2(134, 132)
+
+[node name="master" type="Node2D"]
+
+[node name="HUD" parent="." instance=ExtResource("1_56qer")]
+z_index = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(329, 269)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_618w4")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("2_8kyus")

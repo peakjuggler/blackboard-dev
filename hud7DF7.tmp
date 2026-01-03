@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpe6d5p5pw5cu"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_nliop"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dugsv"]
+font_size = 28
+outline_size = 11
+outline_color = Color(0, 0, 0, 1)
+
+[node name="HUD" type="CanvasGroup"]
+script = ExtResource("1_nliop")
+
+[node name="LIMIT" type="Label" parent="."]
+offset_left = 967.0
+offset_top = 677.0
+offset_right = 1274.0
+offset_bottom = 716.0
+text = "LIMIT:"
+label_settings = SubResource("LabelSettings_dugsv")

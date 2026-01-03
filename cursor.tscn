@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dthpqpeky42i3"]
+
+[ext_resource type="Texture2D" uid="uid://6i3dse57uq4s" path="res://Hit-Marker-PNG-Image.png" id="1_vscl5"]
+
+[node name="hitmarker" type="Sprite2D"]
+position = Vector2(-119, -86)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_vscl5")
