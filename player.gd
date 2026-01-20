@@ -63,7 +63,7 @@ func _physics_process(delta):
 		boostLength = max_boost_legnth
 	
 	if boostLength < 0:
-		acceleration /= 5
+		acceleration /= 3 # 5 made my one playtester want to kill themselves so 3 it is
 		base_top_speed = lerp(base_top_speed, speed_penalty, 1)
 		movement_penalty()
 		
@@ -165,7 +165,7 @@ func on_boost() -> void:
 		camera_tween.kill()
 	camera_tween = create_tween()
 	#$Camera2D.position_smoothing_speed = 11.75
-	#camera_tween.tween_property($Camera2D, "zoom", Vector2(0.375, 0.375), 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	camera_tween.tween_property($Camera2D, "zoom", Vector2(0.39, 0.39), 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 	#camera_tween.tween_property($Camera2D, "position_smoothing_speed", 1, 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 	
 	base_top_speed *= 1.05
@@ -176,7 +176,7 @@ func on_boost() -> void:
 		
 	if boostLength <= 1.5:
 		#$Camera2D.position_smoothing_speed = 10
-		base_top_speed *= 1.25
+		base_top_speed *= 1.15
 		
 	$boostTrail.emitting = true
 	boostActive = true
