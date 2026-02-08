@@ -4,12 +4,21 @@ extends CharacterBody2D
 
 @export var speed = 1000
 @export var health = 3
+var sandyAlreadyActive = false
 
 
 func _physics_process(delta: float):
 	var direction = (t.position - position).normalized()
 	velocity = direction * speed
 	move_and_slide()
+	
+	if Global.comingOutOfSandy == true && Global.globalSandyActive == true:
+		create_tween().tween_property($".", "speed", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if Global.globalSandyActive == true && !Global.comingOutOfSandy == true:
+		create_tween().tween_property($".", "speed", 100, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if Global.globalSandyActive == false:
+		create_tween().tween_property($".", "speed", 1000, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		
 	
 
 func _on_area_2d_area_entered(area: Area2D) -> void:

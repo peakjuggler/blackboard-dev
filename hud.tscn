@@ -7,7 +7,6 @@
 script = ExtResource("1_nliop")
 
 [node name="LIMIT" type="Label" parent="."]
-modulate = Color(1, 1, 1, 0.54902)
 show_behind_parent = true
 visibility_layer = 2
 z_index = 1
@@ -65,4 +64,9 @@ scale = Vector2(0.313055, 0.319445)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(800, 432, 881.635, 432, 960, 432, 960, 576, 800, 576)
 
+[node name="idleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="warning" to="." method="_on_warning_timeout"]
+[connection signal="timeout" from="idleTimer" to="." method="_on_idle_timer_timeout"]

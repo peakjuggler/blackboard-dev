@@ -7,6 +7,7 @@ var med := " NORMAL"
 var high := " BOOST"
 var gearNum := 2
 var hasBeenCalled := false
+var timerHasBeenCalled := false
 #create_tween().tween_property(warningBox, "modulate:a", 1, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 @onready var warningBox := $alertBox
 @onready var sandyTimer = get_owner().get_node("player/sandevistan")
@@ -81,20 +82,17 @@ func _process(delta: float) -> void:
 	update_speed()
 	update_limit()
 	update_boost()
-		
-	$LIMIT.modulate.a = 1 # 0.50
 	
 	if player.boostLength < 1.25 && hasBeenCalled == false:
 		warning()
 	if player.boostLength > 1.25:
 		create_tween().tween_property(warningBox, "modulate:a", 0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		#alpha_tween.kill()
-	
+		#alpha_tween.kill()	
 	if player.sandyActive == true:
 		update_sand()
 	if !player.sandyActive || ( player.boostActive && !player.sandyActive ):
 		idle_cooldown()
-			
+	
 func _on_player_speed_up() -> void:
 	gearNum += 1
 	print("houngry")
@@ -103,4 +101,9 @@ func _on_player_speed_up() -> void:
 func _on_player_speed_down() -> void:
 	gearNum -= 1
 	print("starving")
+	pass # Replace with function body.
+
+func _on_idle_timer_timeout() -> void:
+	create_tween().tween_property($".", "modulate:a", 0.5, 3).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	timerHasBeenCalled = true
 	pass # Replace with function body.

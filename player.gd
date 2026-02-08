@@ -48,7 +48,7 @@ func _physics_process(delta):
 	velocity = velocity.limit_length(base_top_speed)
 	current_speed = velocity.length()
 	
-	print(acceleration)
+	#print(acceleration)
 	
 	if (penalty && boostLength >= 1.30):
 		penalty = false
@@ -126,14 +126,13 @@ func on_fire() -> void:
 	#print("fuck")
 
 func reset_camera_speed() -> void:
-	$Camera2D.position_smoothing_speed = 17.5
+	$Camera2D.position_smoothing_speed = 27.5
 
 func on_activateSandy() -> void:
 	$Camera2D.position_smoothing_speed = 25
 	sandyActive = true
+	Global.globalSandyActive = true
 	speedDown.emit()
-	
-	bullet_speed = 50
 
 	if is_instance_valid(engine_time_tween):
 		engine_time_tween.kill()
@@ -201,6 +200,7 @@ func on_thirdGear() -> void:
 	
 func _on_sandevistan_timeout() -> void:
 	$sandTrans.start()		
+	Global.comingOutOfSandy = true
 	if is_instance_valid(camera_tween):
 		camera_tween.kill()
 	camera_tween = create_tween()
@@ -214,7 +214,8 @@ func _on_sandevistan_timeout() -> void:
 func _on_sand_trans_timeout() -> void:
 	$sandCool.start()
 	speed = 100.0
-	
+	Global.comingOutOfSandy = false
+	Global.globalSandyActive = false
 	sandyActive = false
 	#bad. this is fucking awful
 		
@@ -230,8 +231,6 @@ func _on_sand_trans_timeout() -> void:
 	canUseSandy = false
 	speedUp.emit()
 	$GPUParticles2D.lifetime = 3.5
-	
-	bullet_speed = 800
 
 func _on_sand_cool_timeout() -> void:
 	print("yay!")
