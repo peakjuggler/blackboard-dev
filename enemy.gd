@@ -2,8 +2,9 @@ extends CharacterBody2D
 @onready var t = $"../player"
 @onready var color_tween: Tween = null
 
-@export var speed = 1000
-@export var health = 3
+@export var speed = 0
+@export var base_speed = 1500
+@export var health = 10
 var sandyAlreadyActive = false
 
 
@@ -17,7 +18,7 @@ func _physics_process(delta: float):
 	if Global.globalSandyActive == true && !Global.comingOutOfSandy == true:
 		create_tween().tween_property($".", "speed", 100, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	if Global.globalSandyActive == false:
-		create_tween().tween_property($".", "speed", 1000, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+		create_tween().tween_property($".", "speed", base_speed, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		
 	
 

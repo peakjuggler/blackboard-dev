@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://tk2xmo06c0r6"]
+
+[ext_resource type="Script" path="res://boss.gd" id="1_wylna"]
+[ext_resource type="Texture2D" uid="uid://dsbnyksj4xhub" path="res://thebigE.png" id="2_ougpq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mveq"]
+size = Vector2(232, 129)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0hrkd"]
+radius = 48.0
+height = 176.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qmy17"]
+radius = 32.0
+height = 294.113
+
+[sub_resource type="Gradient" id="Gradient_c30ac"]
+offsets = PackedFloat32Array(0, 0.361538, 0.615385, 0.807692, 1)
+colors = PackedColorArray(9.81867e-06, 0.975081, 0.663157, 1, 0.0336121, 0.378016, 0.726213, 1, 0.647527, 0.291025, 1, 1, 1, 0.106059, 0.57573, 1, 1, 0.406699, 0.265079, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4j0lt"]
+gradient = SubResource("Gradient_c30ac")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jl1ii"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(10, 0, 0)
+direction = Vector3(0, 0, 0)
+spread = 145.0
+flatness = 0.705
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_4j0lt")
+
+[node name="boss" type="CharacterBody2D"]
+script = ExtResource("1_wylna")
+
+[node name="ThebigE" type="Sprite2D" parent="."]
+position = Vector2(-16, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ougpq")
+
+[node name="hitbox2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 80)
+shape = SubResource("RectangleShape2D_3mveq")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-16, -64)
+rotation = 2.80474
+shape = SubResource("CapsuleShape2D_0hrkd")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="hurtbox" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8, -2.86102e-06)
+rotation = 2.76809
+shape = SubResource("CapsuleShape2D_qmy17")
+debug_color = Color(0.96, 0, 0.496, 0.101961)
+
+[node name="Sandevistan" type="GPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(-26, -8)
+emitting = false
+amount = 128
+process_material = SubResource("ParticleProcessMaterial_jl1ii")
+texture = ExtResource("2_ougpq")
+lifetime = 12.0
+preprocess = 12.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
