@@ -1,12 +1,12 @@
 extends CharacterBody2D
 @onready var t = $"../player"
 @onready var s = $Sandevistan
-@onready var sandevistanBuffer = $bossTimer
 @onready var color_tween: Tween = null
 
 @export var speed = 0
 @export var base_speed = 1200
 @export var health = 100
+
 var sandyAlreadyActive = false
 
 
@@ -18,9 +18,16 @@ func _physics_process(delta: float):
 	check_for_sandevistan()
 	
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("boss health is : ", health)
-	hurt_tween()
-	health -= 1
+	if area is Projectile_Bullet:
+		print("boss health is : ", health)
+		hurt_tween()
+		health -= 1
+	
+	if area is PLAYERCB && t.current_speed > 1200 :
+		print("boss health is : ", health)
+		hurt_tween()
+		health -= 10
+	
 	if health <= 0:
 		queue_free()
 		
@@ -48,7 +55,3 @@ func hurt_tween():
 	color_tween.tween_interval(0.1)
 	color_tween.tween_property($ThebigE, "modulate:s", 0.0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	color_tween.tween_interval(0.1)
-
-func _on_boss_timer_timeout() -> void:
-	sandevistan_init()
-	pass

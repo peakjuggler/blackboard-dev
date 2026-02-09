@@ -1,8 +1,5 @@
 extends CharacterBody2D
-
-var speed: float = 100.0
-var current_speed = 100	 # elusive penis variable
-var acceleration = 45	# game var acceleration
+class_name Player
 
 @export_category("Movement")
 @export var base_acceleration = 45	# the acceleration that gets used to multiply boost power
@@ -12,6 +9,7 @@ var acceleration = 45	# game var acceleration
 @export_category("Attributes")
 @export var boostLength := 3.0 # if you change one make sure to change the other!!!
 @export var max_boost_legnth = 3.0
+@export var hitbox : CollisionShape2D
 
 @export_category("Weapons")
 @export var Bullet : PackedScene
@@ -20,6 +18,10 @@ var acceleration = 45	# game var acceleration
 @export_category("Time")
 @export var default_time_scale = 1
 @export var sandevistan_time_scale = 0.5
+
+var speed: float = 100.0
+var current_speed = 100	 # elusive penis variable
+var acceleration = 45	# game var acceleration
 
 var limitNum := 2
 var gearBefore := 2

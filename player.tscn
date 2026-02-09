@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://banteuyyp8plh"]
+[gd_scene load_steps=15 format=3 uid="uid://banteuyyp8plh"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_adjju"]
 [ext_resource type="Texture2D" uid="uid://vd0qctidlmwm" path="res://giant asian.png" id="2_y7xin"]
+[ext_resource type="Script" path="res://player_collision_box.gd" id="3_0m8x1"]
 [ext_resource type="Texture2D" uid="uid://cgkvxejdqd7m2" path="res://Hit-Marker-PNG-Image.png" id="3_a0mas"]
 [ext_resource type="Script" path="res://anchor.gd" id="3_mrm64"]
 [ext_resource type="Script" path="res://hitmarker.gd" id="4_gu7uc"]
@@ -42,9 +43,13 @@ alpha_curve = SubResource("CurveTexture_5ea3i")
 [sub_resource type="CircleShape2D" id="CircleShape2D_osr0f"]
 radius = 29.0172
 
-[node name="player" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hhaut"]
+radius = 44.0
+
+[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 position = Vector2(691, 430)
 script = ExtResource("1_adjju")
+hitbox = NodePath("Hitbox")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 emitting = false
@@ -69,9 +74,17 @@ position = Vector2(11, 1)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_y7xin")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-4, 2)
 shape = SubResource("CircleShape2D_osr0f")
+
+[node name="PlayerCollisionBox" type="Area2D" parent="."]
+position = Vector2(-4, 2)
+script = ExtResource("3_0m8x1")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="PlayerCollisionBox"]
+shape = SubResource("CircleShape2D_hhaut")
+debug_color = Color(0.775173, 9.14484e-06, 0.517101, 0.42)
 
 [node name="weapon" type="Node2D" parent="."]
 position = Vector2(0, -1)

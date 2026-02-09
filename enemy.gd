@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var color_tween: Tween = null
 
 @export var speed = 0
-@export var base_speed = 1500
+@export var base_speed = 800
 @export var health = 10
 var sandyAlreadyActive = false
 
@@ -12,24 +12,39 @@ func _physics_process(delta: float):
 	var direction = (t.position - position).normalized()
 	velocity = direction * speed
 	move_and_slide()
-	
-	if Global.comingOutOfSandy == true && Global.globalSandyActive == true:
-		create_tween().tween_property($".", "speed", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	if Global.globalSandyActive == true && !Global.comingOutOfSandy == true:
-		create_tween().tween_property($".", "speed", 100, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	if Global.globalSandyActive == false:
-		create_tween().tween_property($".", "speed", base_speed, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
-		
+	check_for_sandevistan()
 	
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("enemy health is : ", health)
+	if area is Projectile_Bullet:
+		print("enemy health is : ", health)
+		hurt_tween()
+		health -= 1
 	
-	hurt_tween()
+	if area is PLAYERCB && t.current_speed > 1200 :
+		print("enemy health is : ", health)
+		#hurt_tween()
+		health -= 10
 	
-	health -= 1
 	if health <= 0:
 		queue_free()
+
+func check_for_sandevistan():
+	if Global.comingOutOfSandy == true && Global.globalSandyActive == true:
+		sandevistan_rtrt()
+	if Global.globalSandyActive == true && !Global.comingOutOfSandy == true:
+		sandevistan_init()
+	if Global.globalSandyActive == false:
+		sandevistan_reset()
+
+func sandevistan_init(): 
+	create_tween().tween_property($".", "speed", 100, 0.01).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+
+func sandevistan_rtrt(): 
+	create_tween().tween_property($".", "speed", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+func sandevistan_reset(): 
+	create_tween().tween_property($".", "speed", base_speed, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
 func hurt_tween():
 	color_tween = create_tween().set_loops(1)

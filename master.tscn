@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bvrk867hchcjn" path="res://bullet.tscn" id="2_l7en2"]
 [ext_resource type="Script" path="res://sub_viewport.gd" id="3_u56tw"]
 [ext_resource type="Texture2D" uid="uid://cwkmo6whk2r7x" path="res://Prototype_Grid_Gray_05-512x512.png" id="5_s1itm"]
-[ext_resource type="PackedScene" uid="uid://tk2xmo06c0r6" path="res://boss.tscn" id="8_yoge6"]
+[ext_resource type="PackedScene" uid="uid://btblxeaw04316" path="res://enemy.tscn" id="8_1jlp8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_618w4"]
 size = Vector2(134, 132)
@@ -202,8 +202,20 @@ tile_map_data = PackedByteArray("AAD9////AQAAAAAAAAD9/wAAAQAAAAAAAAD+////AQAAAAA
 tile_set = SubResource("TileSet_1pnv5")
 metadata/_edit_lock_ = true
 
-[node name="boss" parent="." instance=ExtResource("8_yoge6")]
-position = Vector2(-2784, 2216)
+[node name="enemy" parent="." instance=ExtResource("8_1jlp8")]
+position = Vector2(-1184, 2352)
+
+[node name="enemy2" parent="." instance=ExtResource("8_1jlp8")]
+position = Vector2(-1560, 1976)
+
+[node name="enemy3" parent="." instance=ExtResource("8_1jlp8")]
+position = Vector2(-1792, 2536)
+
+[node name="enemy4" parent="." instance=ExtResource("8_1jlp8")]
+position = Vector2(640, 2560)
+
+[node name="enemy5" parent="." instance=ExtResource("8_1jlp8")]
+position = Vector2(-312, 2608)
 
 [connection signal="speedDown" from="player" to="player/Camera2D/HUD" method="_on_player_speed_down"]
 [connection signal="speedUp" from="player" to="player/Camera2D/HUD" method="_on_player_speed_up"]

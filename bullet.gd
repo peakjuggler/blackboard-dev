@@ -1,4 +1,5 @@
 extends Area2D
+class_name Projectile_Bullet
 
 @export var speed = 800
 var slowed_speed = speed * 0.05

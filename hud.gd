@@ -39,7 +39,7 @@ func reset_HUD_alpha():
 	pass
 
 func set_HUD_alpha():
-	create_tween().tween_property($".", "modulate:a", 0, 0.3).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	create_tween().tween_property($".", "modulate:a", 0, 6).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	pass	
 	
 func idle_cooldown():
