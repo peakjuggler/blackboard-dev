@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bvxqq6ts0l3o6" path="res://gay.png" id="2_5rnwk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eh6vw"]
-radius = 56.0
+radius = 40.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xqoti"]
-radius = 45.7056
+radius = 56.0
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_5xvi5")

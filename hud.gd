@@ -39,7 +39,7 @@ func reset_HUD_alpha():
 	pass
 
 func set_HUD_alpha():
-	create_tween().tween_property($".", "modulate:a", 0, 6).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	create_tween().tween_property($".", "modulate:a", 0, 10).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 	pass	
 	
 func idle_cooldown():
@@ -49,8 +49,8 @@ func idle_cooldown():
 	
 func update_speed():
 	var currentSpeed = 0 + player.current_speed
-	var decimalSpeed = snapped(currentSpeed, 0.1)
-	$SPEED.text = ("SPEED : " + str(decimalSpeed))
+	var decimalSpeed = snapped(currentSpeed, 1)
+	$SPEED.text = ("SPEED : " + str(decimalSpeed / 35) + " MPH")
 	pass
 
 func warning():
@@ -61,9 +61,9 @@ func warning():
 		alpha_tween.kill()
 		
 	alpha_tween = create_tween().set_loops()
-	alpha_tween.tween_property($alertBox, "modulate:a", 1.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	alpha_tween.tween_property(warningBox, "modulate:a", 1.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	alpha_tween.tween_interval(0.2)
-	alpha_tween.tween_property($alertBox, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	alpha_tween.tween_property(warningBox, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	alpha_tween.tween_interval(0.2)
 	
 func update_limit():
