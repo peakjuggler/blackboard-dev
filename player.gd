@@ -69,7 +69,7 @@ func _physics_process(delta):
 		base_top_speed = lerp(base_top_speed, speed_penalty, 1)
 		movement_penalty()
 		
-	if Input.is_action_just_pressed("LMB"):
+	if ( Input.is_action_just_pressed("LMB") && boostActive == false ):
 		on_fire()
 		
 	if ( Input.is_action_just_released("BOOST") && !penalty ):
@@ -89,14 +89,17 @@ func _physics_process(delta):
 		reset_camera_speed()
 		
 		
-	if boostActive == false && current_speed > 1025:
+	if boostActive == false && sandyActive == false:
 		if boostLength < 1:
-			boostLength += 0.01
+			boostLength += 0.01 * ( current_speed / base_top_speed ) / 1.5
+		if current_speed < 750: # handoff so it gradients
+			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 2
 		else:
-			boostLength += 0.0075
+			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 1.5
 		#print("boost 000")
 		
-	if inputVector.y == 0:
+	if inputVector.x == 0 && inputVector.y == 0: # thinning out the soup because i don't want to make a state machine :(
+		boostLength += 0.0005
 		velocity = velocity.move_toward(Vector2.ZERO, 5)	
 		
 	match limitNum:
@@ -116,8 +119,6 @@ func _physics_process(delta):
 	if limitNum > 3:
 		limitNum = 3  
 
-	
-	
 	move_and_slide()
 	
 func on_fire() -> void:

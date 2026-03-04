@@ -11,7 +11,7 @@ var sandyAlreadyActive = false
 func _physics_process(delta: float):
 	var direction = (t.position - position).normalized()
 	velocity = direction * speed
-	move_and_slide()
+	#move_and_slide()
 	check_for_sandevistan()
 	
 
@@ -21,7 +21,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		hurt_tween()
 		health -= 1
 	
-	if area is PLAYERCB && t.current_speed > 1200 :
+	if area is PLAYERCB && t.current_speed > 1500 :
+		set_physics_process(false)
 		print("enemy health is : ", health)
 		#hurt_tween()
 		health -= 10

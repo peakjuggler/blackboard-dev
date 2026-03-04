@@ -9,7 +9,8 @@ var gearNum := 2
 var hasBeenCalled := false
 var timerHasBeenCalled := false
 #create_tween().tween_property(warningBox, "modulate:a", 1, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-@onready var warningBox := $alertBox
+@onready var warningBox := $BoostBar/alertBox
+@onready var boostBar := $BoostBar/BOOST
 @onready var sandyTimer = get_owner().get_node("player/sandevistan")
 @onready var sandyCooldown = get_owner().get_node("player/sandCool")
 @onready var alpha_tween: Tween = null
@@ -29,9 +30,9 @@ func update_sand():
 	pass
 	
 func update_boost():
-	$BOOST.max_value = player.max_boost_legnth
-	var maxTime = $BOOST.max_value
-	$BOOST.value = player.boostLength
+	boostBar.max_value = player.max_boost_legnth
+	var maxTime = boostBar.max_value
+	boostBar.value = player.boostLength
 	pass
 	
 func reset_HUD_alpha():
@@ -62,9 +63,9 @@ func warning():
 		
 	alpha_tween = create_tween().set_loops()
 	alpha_tween.tween_property(warningBox, "modulate:a", 1.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	alpha_tween.tween_interval(0.2)
+	alpha_tween.tween_interval(0.15)
 	alpha_tween.tween_property(warningBox, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	alpha_tween.tween_interval(0.2)
+	alpha_tween.tween_interval(0.15)
 	
 func update_limit():
 	

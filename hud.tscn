@@ -1,31 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://clg0olrc3pcld"]
+[gd_scene load_steps=9 format=3 uid="uid://clg0olrc3pcld"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_nliop"]
 [ext_resource type="LabelSettings" uid="uid://dx55rv43tgx8g" path="res://hud.tres" id="2_bjjxw"]
+[ext_resource type="Texture2D" uid="uid://dfho83k5nlyf1" path="res://tmp.png" id="5_hym2v"]
+
+[sub_resource type="SystemFont" id="SystemFont_ugoqw"]
+font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_5cvev"]
+color = Color(1, 1, 1, 1)
+grow_begin = 10.0
+grow_end = 10.0
+thickness = 2
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_dam0d"]
+color = Color(1, 1, 1, 1)
+grow_begin = 15.0
+thickness = 15
+
+[sub_resource type="SystemFont" id="SystemFont_h6i23"]
+font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_i60wt"]
+font = SubResource("SystemFont_h6i23")
+font_size = 12
+outline_color = Color(0, 0, 0, 1)
 
 [node name="HUD" type="CanvasGroup"]
 script = ExtResource("1_nliop")
 
-[node name="alphaBox" type="Polygon2D" parent="."]
-position = Vector2(2604, 668)
-color = Color(0, 0, 0, 0.196078)
-polygon = PackedVector2Array(0, 0, 615, 0, 615, 155, 0, 155)
-
 [node name="SPEED" type="Label" parent="."]
-offset_left = 2621.0
-offset_top = 670.0
-offset_right = 2770.0
-offset_bottom = 728.0
+offset_left = 3229.0
+offset_top = -152.0
+offset_right = 3378.0
+offset_bottom = -94.0
+rotation = 1.57079
 text = "SPEED: "
 label_settings = ExtResource("2_bjjxw")
 
 [node name="SAND" type="ProgressBar" parent="."]
-modulate = Color(1, 0, 0, 1)
-offset_left = 3200.0
-offset_top = 790.0
-offset_right = 3218.0
-offset_bottom = 1370.0
-rotation = 1.57079
+offset_left = 3190.0
+offset_top = 672.0
+offset_right = 3275.01
+offset_bottom = 847.0
+scale = Vector2(0.244099, 0.85437)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 max_value = 3.5
@@ -34,45 +55,102 @@ value = 3.496
 fill_mode = 3
 show_percentage = false
 
-[node name="BOOST" type="ProgressBar" parent="."]
-offset_left = 3148.0
-offset_top = 734.0
-offset_right = 3194.0
-offset_bottom = 1263.0
-rotation = 1.57079
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/outline_size = 7
-theme_override_font_sizes/font_size = 14
-max_value = 3.0
-value = 3.0
-fill_mode = 3
-
 [node name="LIMIT" type="Label" parent="."]
 show_behind_parent = true
 visibility_layer = 2
 z_index = 1
 offset_left = 56.0
-offset_top = -34.0
+offset_top = -82.0
 offset_right = 189.0
-offset_bottom = 24.0
+offset_bottom = -24.0
 text = "LIMIT : 
 "
 label_settings = ExtResource("2_bjjxw")
-
-[node name="warning" type="Timer" parent="."]
-wait_time = 0.1
-
-[node name="alertBox" type="Polygon2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(2907, 596)
-scale = Vector2(0.313055, 0.319445)
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(800, 432, 881.635, 432, 960, 432, 960, 576, 800, 576)
 
 [node name="idleTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
-[connection signal="timeout" from="warning" to="." method="_on_warning_timeout"]
+[node name="BoostBar" type="Node2D" parent="."]
+position = Vector2(2484, 751)
+scale = Vector2(3, 3)
+
+[node name="alphaBox" type="Polygon2D" parent="BoostBar"]
+position = Vector2(-21, -59.3333)
+scale = Vector2(0.414468, 0.333816)
+color = Color(0, 0, 0, 0.196078)
+polygon = PackedVector2Array(0, 100, 615, 100, 615, 250, 0, 250)
+
+[node name="alertBox" type="Polygon2D" parent="BoostBar"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-85.3333, -61)
+scale = Vector2(0.0833333, 0.085)
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(800, 432, 881.635, 432, 960, 432, 960, 576, 800, 576)
+
+[node name="BOOST" type="ProgressBar" parent="BoostBar"]
+offset_left = 43.0
+offset_top = 10.665
+offset_right = 63.75
+offset_bottom = 1495.34
+rotation = 4.71238
+scale = Vector2(0.897059, 0.118856)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = SubResource("SystemFont_ugoqw")
+theme_override_styles/background = SubResource("StyleBoxLine_5cvev")
+theme_override_styles/fill = SubResource("StyleBoxLine_dam0d")
+max_value = 3.0
+value = 3.0
+fill_mode = 3
+show_percentage = false
+
+[node name="L" type="Polygon2D" parent="BoostBar"]
+position = Vector2(40.3334, 7.33334)
+scale = Vector2(0.333333, 0.333333)
+polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
+
+[node name="L2" type="Polygon2D" parent="BoostBar"]
+position = Vector2(33.3334, 7.33334)
+scale = Vector2(0.906667, 0.333333)
+polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
+
+[node name="R" type="Polygon2D" parent="BoostBar"]
+position = Vector2(219.334, 7.33334)
+scale = Vector2(0.333333, 0.333333)
+polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
+
+[node name="R2" type="Polygon2D" parent="BoostBar"]
+position = Vector2(224, 7.33334)
+scale = Vector2(0.906667, 0.333333)
+polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
+
+[node name="C" type="Label" parent="BoostBar"]
+show_behind_parent = true
+visibility_layer = 2
+z_index = 1
+offset_left = 32.3334
+offset_top = 9.33333
+offset_right = 165.333
+offset_bottom = 67.3333
+text = "C
+"
+label_settings = SubResource("LabelSettings_i60wt")
+
+[node name="H" type="Label" parent="BoostBar"]
+show_behind_parent = true
+visibility_layer = 2
+z_index = 1
+offset_left = 222.667
+offset_top = 9.33333
+offset_right = 355.667
+offset_bottom = 67.3333
+text = "H
+"
+label_settings = SubResource("LabelSettings_i60wt")
+
+[node name="TEMP" type="Sprite2D" parent="BoostBar"]
+position = Vector2(5.33337, 0)
+texture = ExtResource("5_hym2v")
+
 [connection signal="timeout" from="idleTimer" to="." method="_on_idle_timer_timeout"]

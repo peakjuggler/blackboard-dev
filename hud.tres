@@ -1,6 +1,10 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://dx55rv43tgx8g"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dx55rv43tgx8g"]
+
+[sub_resource type="SystemFont" id="SystemFont_h6i23"]
+font_names = PackedStringArray("Impact")
 
 [resource]
+font = SubResource("SystemFont_h6i23")
 font_size = 42
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)

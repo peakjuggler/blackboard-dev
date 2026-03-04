@@ -44,7 +44,7 @@ alpha_curve = SubResource("CurveTexture_5ea3i")
 radius = 29.0172
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhaut"]
-radius = 44.0
+radius = 58.0345
 
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 position = Vector2(691, 430)
