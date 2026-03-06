@@ -26,6 +26,12 @@ var acceleration = 45	# game var acceleration
 var limitNum := 2
 var gearBefore := 2
 
+# idk if its good practice to have the camera tied to the player like this but fuck it we ball
+@onready var playerCam := $Camera2D
+
+var defaultCamZoom := 0.40
+var boostCamValue := defaultCamZoom - ( boostLength / 243 ) # 243 is 3 to the fifth power
+
 var canUseSandy := true
 var sandyActive := false
 var boostActive := false
@@ -84,7 +90,7 @@ func _physics_process(delta):
 			camera_tween.kill()
 		camera_tween = create_tween()
 		#$Camera2D.position_smoothing_enabled = true
-		camera_tween.tween_property($Camera2D, "zoom", Vector2(0.4, 0.4), 2).set_ease(Tween.EASE_OUT)
+		camera_tween.tween_property(playerCam, "zoom", Vector2(0.4, 0.4), 2).set_ease(Tween.EASE_OUT)
 		
 		reset_camera_speed()
 		
@@ -102,7 +108,7 @@ func _physics_process(delta):
 		boostLength += 0.0005
 		velocity = velocity.move_toward(Vector2.ZERO, 5)	
 		
-	match limitNum:
+	match limitNum: # hate this
 		1:
 			on_firstGear()
 
@@ -129,10 +135,10 @@ func on_fire() -> void:
 	#print("fuck")
 
 func reset_camera_speed() -> void:
-	$Camera2D.position_smoothing_speed = 27.5
+	playerCam.position_smoothing_speed = 27.5
 
 func on_activateSandy() -> void:
-	$Camera2D.position_smoothing_speed = 25
+	playerCam.position_smoothing_speed = 25
 	sandyActive = true
 	Global.globalSandyActive = true
 	speedDown.emit()
@@ -146,7 +152,7 @@ func on_activateSandy() -> void:
 	if is_instance_valid(camera_tween):
 		camera_tween.kill()
 	camera_tween = create_tween()
-	camera_tween.tween_property($Camera2D, "zoom", Vector2(0.42, 0.42), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	camera_tween.tween_property(playerCam, "zoom", Vector2(0.42, 0.42), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 	
 	$GPUParticles2D.lifetime = 3.5
 	$GPUParticles2D.emitting = true
@@ -167,7 +173,7 @@ func on_boost() -> void:
 		camera_tween.kill()
 	camera_tween = create_tween()
 	#$Camera2D.position_smoothing_speed = 11.75
-	camera_tween.tween_property($Camera2D, "zoom", Vector2(0.395, 0.395), 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+	camera_tween.tween_property(playerCam, "zoom", Vector2(boostCamValue, boostCamValue), 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 	#camera_tween.tween_property($Camera2D, "position_smoothing_speed", 1, 0.05).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 	
 	base_top_speed *= 1.05
@@ -207,7 +213,7 @@ func _on_sandevistan_timeout() -> void:
 	if is_instance_valid(camera_tween):
 		camera_tween.kill()
 	camera_tween = create_tween()
-	camera_tween.tween_property($Camera2D, "zoom", Vector2(0.38, 0.38), 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN_OUT)
+	camera_tween.tween_property(playerCam, "zoom", Vector2(0.38, 0.38), 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN_OUT)
 	base_top_speed = 0.0
 	speed = 0
 	$GPUParticles2D.lifetime = 1.5
@@ -229,7 +235,7 @@ func _on_sand_trans_timeout() -> void:
 	if is_instance_valid(camera_tween):
 		camera_tween.kill()
 	camera_tween = create_tween()
-	camera_tween.tween_property($Camera2D, "zoom", Vector2(0.4, 0.4), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	camera_tween.tween_property(playerCam, "zoom", Vector2(0.4, 0.4), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		
 	canUseSandy = false
 	speedUp.emit()
