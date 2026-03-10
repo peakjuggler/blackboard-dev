@@ -83,6 +83,7 @@ position = Vector2(-4, 2)
 script = ExtResource("3_0m8x1")
 
 [node name="CollisionBox" type="CollisionShape2D" parent="PlayerCollisionBox"]
+position = Vector2(214, -52)
 shape = SubResource("CircleShape2D_hhaut")
 debug_color = Color(0.775173, 9.14484e-06, 0.517101, 0.42)
 
@@ -100,7 +101,6 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_a0mas")
 
 [node name="sandTrans" type="Timer" parent="."]
-wait_time = 1.5
 one_shot = true
 
 [node name="sandevistan" type="Timer" parent="."]

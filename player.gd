@@ -2,13 +2,13 @@ extends CharacterBody2D
 class_name Player
 
 @export_category("Movement")
-@export var base_acceleration = 45	# the acceleration that gets used to multiply boost power
+@export var base_acceleration: int = 25	# the acceleration that gets used to multiply boost power
 @export var base_top_speed: float = 1075.0
 @export var speed_penalty: float = 775.0
 
 @export_category("Attributes")
-@export var boostLength := 3.0 # if you change one make sure to change the other!!!
-@export var max_boost_legnth = 3.0
+@export var boostLength: float = 3.0 # if you change one make sure to change the other!!!
+@export var max_boost_legnth: float = 3.0
 @export var hitbox : CollisionShape2D
 
 @export_category("Weapons")
@@ -16,12 +16,12 @@ class_name Player
 @export var bullet_speed:int = 800
 
 @export_category("Time")
-@export var default_time_scale = 1
-@export var sandevistan_time_scale = 0.5
+@export var default_time_scale: float = 1
+@export var sandevistan_time_scale: float = 0.5
 
 var speed: float = 100.0
-var current_speed = 100	 # elusive penis variable
-var acceleration = 45	# game var acceleration
+var current_speed: int = 100	 # elusive penis variable
+var acceleration: int = base_acceleration	# game var acceleration
 
 var limitNum := 2
 var gearBefore := 2
@@ -84,6 +84,9 @@ func _physics_process(delta):
 		speedDown.emit()
 		boostActive = false
 		$boostTrail.emitting = false
+		
+	if ( Global.comingOutOfSandy == true):
+		velocity /= 1.045
 	
 	if ( Input.is_action_just_released("BOOST") && !sandyActive ):
 		if is_instance_valid(camera_tween):
@@ -97,7 +100,7 @@ func _physics_process(delta):
 		
 	if boostActive == false && sandyActive == false:
 		if boostLength < 1:
-			boostLength += 0.01 * ( current_speed / base_top_speed ) / 1.5
+			boostLength += 0.01 * ( current_speed / base_top_speed ) / 2 
 		if current_speed < 750: # handoff so it gradients
 			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 2
 		else:
@@ -106,7 +109,7 @@ func _physics_process(delta):
 		
 	if inputVector.x == 0 && inputVector.y == 0: # thinning out the soup because i don't want to make a state machine :(
 		boostLength += 0.0005
-		velocity = velocity.move_toward(Vector2.ZERO, 5)	
+		velocity = velocity.move_toward(Vector2.ZERO, 7)	
 		
 	match limitNum: # hate this
 		1:
@@ -124,7 +127,7 @@ func _physics_process(delta):
 		
 	if limitNum > 3:
 		limitNum = 3  
-
+		
 	move_and_slide()
 	
 func on_fire() -> void:
@@ -213,16 +216,13 @@ func _on_sandevistan_timeout() -> void:
 	if is_instance_valid(camera_tween):
 		camera_tween.kill()
 	camera_tween = create_tween()
-	camera_tween.tween_property(playerCam, "zoom", Vector2(0.38, 0.38), 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN_OUT)
-	base_top_speed = 0.0
-	speed = 0
-	$GPUParticles2D.lifetime = 1.5
+	camera_tween.tween_property(playerCam, "zoom", Vector2(0.33, 0.33), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	$GPUParticles2D.lifetime = 1
 	print ("im fuckingh workuing")
-	$GPUParticles2D.emitting = false
-
+	
 func _on_sand_trans_timeout() -> void:
 	$sandCool.start()
-	speed = 100.0
+	$GPUParticles2D.emitting = false
 	Global.comingOutOfSandy = false
 	Global.globalSandyActive = false
 	sandyActive = false
@@ -239,7 +239,7 @@ func _on_sand_trans_timeout() -> void:
 		
 	canUseSandy = false
 	speedUp.emit()
-	$GPUParticles2D.lifetime = 3.5
+	#$GPUParticles2D.lifetime = 3.5
 
 func _on_sand_cool_timeout() -> void:
 	print("yay!")

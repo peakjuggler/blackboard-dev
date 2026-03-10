@@ -1,8 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://clg0olrc3pcld"]
+[gd_scene load_steps=10 format=3 uid="uid://clg0olrc3pcld"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_nliop"]
-[ext_resource type="LabelSettings" uid="uid://dx55rv43tgx8g" path="res://hud.tres" id="2_bjjxw"]
+[ext_resource type="LabelSettings" uid="uid://blmll13jq66nh" path="res://themes/HUD/lcd.tres" id="3_xaxb7"]
 [ext_resource type="Texture2D" uid="uid://dfho83k5nlyf1" path="res://tmp.png" id="5_hym2v"]
+
+[sub_resource type="SystemFont" id="SystemFont_2m8tk"]
+font_names = PackedStringArray("LCDMono")
+oversampling = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_lhpp5"]
+font = SubResource("SystemFont_2m8tk")
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_a2mgj"]
+font = SubResource("SystemFont_2m8tk")
+font_size = 48
 
 [sub_resource type="SystemFont" id="SystemFont_ugoqw"]
 font_names = PackedStringArray("Impact")
@@ -20,33 +32,24 @@ color = Color(1, 1, 1, 1)
 grow_begin = 15.0
 thickness = 15
 
-[sub_resource type="SystemFont" id="SystemFont_h6i23"]
-font_names = PackedStringArray("Impact")
-subpixel_positioning = 0
-
-[sub_resource type="LabelSettings" id="LabelSettings_i60wt"]
-font = SubResource("SystemFont_h6i23")
-font_size = 12
-outline_color = Color(0, 0, 0, 1)
-
 [node name="HUD" type="CanvasGroup"]
 script = ExtResource("1_nliop")
 
 [node name="SPEED" type="Label" parent="."]
-offset_left = 3229.0
-offset_top = -152.0
-offset_right = 3378.0
-offset_bottom = -94.0
-rotation = 1.57079
-text = "SPEED: "
-label_settings = ExtResource("2_bjjxw")
+offset_left = 3069.0
+offset_top = -287.0
+offset_right = 3218.0
+offset_bottom = -229.0
+text = " "
+label_settings = SubResource("LabelSettings_lhpp5")
+horizontal_alignment = 2
 
 [node name="SAND" type="ProgressBar" parent="."]
-offset_left = 3190.0
-offset_top = 672.0
-offset_right = 3275.01
-offset_bottom = 847.0
-scale = Vector2(0.244099, 0.85437)
+offset_left = 3229.0
+offset_top = -252.0
+offset_right = 3314.01
+offset_bottom = -77.0
+scale = Vector2(0.244099, 1.33437)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 max_value = 3.5
@@ -65,7 +68,7 @@ offset_right = 189.0
 offset_bottom = -24.0
 text = "LIMIT : 
 "
-label_settings = ExtResource("2_bjjxw")
+label_settings = SubResource("LabelSettings_a2mgj")
 
 [node name="idleTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -76,23 +79,24 @@ position = Vector2(2484, 751)
 scale = Vector2(3, 3)
 
 [node name="alphaBox" type="Polygon2D" parent="BoostBar"]
+self_modulate = Color(1, 1, 1, 0.45)
 position = Vector2(-21, -59.3333)
 scale = Vector2(0.414468, 0.333816)
-color = Color(0, 0, 0, 0.196078)
-polygon = PackedVector2Array(0, 100, 615, 100, 615, 250, 0, 250)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(145, 125, 615, 125, 615, 250, 145, 250)
 
-[node name="alertBox" type="Polygon2D" parent="BoostBar"]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(-85.3333, -61)
-scale = Vector2(0.0833333, 0.085)
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(800, 432, 881.635, 432, 960, 432, 960, 576, 800, 576)
+[node name="outline" type="Line2D" parent="BoostBar"]
+position = Vector2(-21.3333, -26.6667)
+scale = Vector2(0.333333, 0.333333)
+points = PackedVector2Array(180, 28, 180, 151, 767, 151, 767, 28)
+closed = true
+width = 5.0
 
 [node name="BOOST" type="ProgressBar" parent="BoostBar"]
-offset_left = 43.0
-offset_top = 10.665
-offset_right = 63.75
-offset_bottom = 1495.34
+offset_left = 56.3334
+offset_top = 10.6665
+offset_right = 77.0834
+offset_bottom = 1110.67
 rotation = 4.71238
 scale = Vector2(0.897059, 0.118856)
 size_flags_horizontal = 4
@@ -106,22 +110,22 @@ fill_mode = 3
 show_percentage = false
 
 [node name="L" type="Polygon2D" parent="BoostBar"]
-position = Vector2(40.3334, 7.33334)
+position = Vector2(53.6666, 7.33331)
 scale = Vector2(0.333333, 0.333333)
 polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
 
 [node name="L2" type="Polygon2D" parent="BoostBar"]
-position = Vector2(33.3334, 7.33334)
+position = Vector2(46.6667, 7.33331)
 scale = Vector2(0.906667, 0.333333)
 polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
 
 [node name="R" type="Polygon2D" parent="BoostBar"]
-position = Vector2(219.334, 7.33334)
+position = Vector2(187.334, 7.33331)
 scale = Vector2(0.333333, 0.333333)
 polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
 
 [node name="R2" type="Polygon2D" parent="BoostBar"]
-position = Vector2(224, 7.33334)
+position = Vector2(192, 7.33331)
 scale = Vector2(0.906667, 0.333333)
 polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
 
@@ -129,28 +133,103 @@ polygon = PackedVector2Array(0, -47.3, 5, -47.3, 5, 10, 0, 10)
 show_behind_parent = true
 visibility_layer = 2
 z_index = 1
-offset_left = 32.3334
-offset_top = 9.33333
-offset_right = 165.333
-offset_bottom = 67.3333
+offset_left = 46.0
+offset_top = 12.0
+offset_right = 178.999
+offset_bottom = 70.0
 text = "C
 "
-label_settings = SubResource("LabelSettings_i60wt")
+label_settings = ExtResource("3_xaxb7")
 
 [node name="H" type="Label" parent="BoostBar"]
 show_behind_parent = true
 visibility_layer = 2
 z_index = 1
-offset_left = 222.667
-offset_top = 9.33333
-offset_right = 355.667
-offset_bottom = 67.3333
+offset_left = 190.667
+offset_top = 12.0
+offset_right = 323.667
+offset_bottom = 70.0
 text = "H
 "
-label_settings = SubResource("LabelSettings_i60wt")
+label_settings = ExtResource("3_xaxb7")
 
 [node name="TEMP" type="Sprite2D" parent="BoostBar"]
-position = Vector2(5.33337, 0)
+position = Vector2(216.667, 3.66668)
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_hym2v")
+
+[node name="coolantTemp" type="Label" parent="BoostBar"]
+offset_left = 38.0
+offset_top = -28.0
+offset_right = 239.0
+offset_bottom = 24.0
+text = "coolant_temp...................."
+label_settings = ExtResource("3_xaxb7")
+
+[node name="Speedometer" type="Node2D" parent="."]
+position = Vector2(88, 0)
+
+[node name="Line2D" type="Line2D" parent="Speedometer"]
+position = Vector2(3031, -247)
+points = PackedVector2Array(0, 0, 100, 0)
+
+[node name="Line2D2" type="Line2D" parent="Speedometer"]
+position = Vector2(3056, -228)
+points = PackedVector2Array(0, 0, 75, 0)
+width = 5.0
+
+[node name="Line2D3" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -213)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D4" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -192)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D5" type="Line2D" parent="Speedometer"]
+position = Vector2(3057, -172)
+points = PackedVector2Array(0, 0, 75, 0)
+width = 3.5
+
+[node name="Line2D6" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -155)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D7" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -134)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D8" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -114)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D9" type="Line2D" parent="Speedometer"]
+position = Vector2(3057, -96)
+points = PackedVector2Array(0, 0, 75, 0)
+width = 3.5
+
+[node name="Line2D10" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -77)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D11" type="Line2D" parent="Speedometer"]
+position = Vector2(3081, -56)
+points = PackedVector2Array(0, 0, 50, 0)
+width = 3.5
+
+[node name="Line2D12" type="Line2D" parent="Speedometer"]
+position = Vector2(3031, -23)
+points = PackedVector2Array(0, 0, 100, 0)
+
+[node name="Line2D13" type="Line2D" parent="Speedometer"]
+position = Vector2(3056, -40)
+points = PackedVector2Array(0, 0, 75, 0)
+width = 5.0
 
 [connection signal="timeout" from="idleTimer" to="." method="_on_idle_timer_timeout"]

@@ -5,11 +5,17 @@ var speedLimitTxt := ""
 var low := " SLOW"
 var med := " NORMAL"
 var high := " BOOST"
+var text := "coolant temp                    "
+var temptature
 var gearNum := 2
 var hasBeenCalled := false
 var timerHasBeenCalled := false
+var baseColor = Color(1, 1, 1, 1)
+var redTweenColor = Color(0.966, 0.182, 0, 1)
+var yellowTweenColor = Color(1, 1, 0, 1)
 #create_tween().tween_property(warningBox, "modulate:a", 1, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-@onready var warningBox := $BoostBar/alertBox
+@onready var warningBox := $BoostBar
+@onready var coolantTemp := $BoostBar/coolantTemp
 @onready var boostBar := $BoostBar/BOOST
 @onready var sandyTimer = get_owner().get_node("player/sandevistan")
 @onready var sandyCooldown = get_owner().get_node("player/sandCool")
@@ -20,19 +26,18 @@ func _ready() -> void:
 	player = get_owner().get_node("player")
 	pass
 	
-func _on_warning_timeout() -> void:
-	create_tween().tween_property(warningBox, "modulate:a", 0, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	pass # Replace with function body.
-	
 func update_sand():
 	var maxTime = $SAND.max_value
 	$SAND.value = sandyTimer.time_left
 	pass
 	
 func update_boost():
+	
 	boostBar.max_value = player.max_boost_legnth
 	var maxTime = boostBar.max_value
+	temptature = snapped(4 - player.boostLength, 0.1)
 	boostBar.value = player.boostLength
+	coolantTemp.text = (text + str(100 * temptature)+ " F*")
 	pass
 	
 func reset_HUD_alpha():
@@ -51,7 +56,7 @@ func idle_cooldown():
 func update_speed():
 	var currentSpeed = 0 + player.current_speed
 	var decimalSpeed = snapped(currentSpeed, 1)
-	$SPEED.text = ("SPEED : " + str(decimalSpeed / 35) + " MPH")
+	$SPEED.text = (str(decimalSpeed / 35) + " M/s")
 	pass
 
 func warning():
@@ -62,9 +67,9 @@ func warning():
 		alpha_tween.kill()
 		
 	alpha_tween = create_tween().set_loops()
-	alpha_tween.tween_property(warningBox, "modulate:a", 1.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	alpha_tween.tween_property(warningBox, "modulate", redTweenColor, 0.1).set_trans(Tween.TRANS_SINE)
 	alpha_tween.tween_interval(0.15)
-	alpha_tween.tween_property(warningBox, "modulate:a", 0.0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	alpha_tween.tween_property(warningBox, "modulate", yellowTweenColor, 0.1).set_trans(Tween.TRANS_SINE)
 	alpha_tween.tween_interval(0.15)
 	
 func update_limit():
@@ -94,9 +99,9 @@ func _process(delta: float) -> void:
 	
 	if player.boostLength < 1.25 && hasBeenCalled == false:
 		warning()
-	if player.boostLength > 1.25:
-		create_tween().tween_property(warningBox, "modulate:a", 0, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		#alpha_tween.kill()	
+	if player.boostLength > 1.25 && hasBeenCalled == true:
+		create_tween().tween_property(warningBox, "modulate", baseColor, 0.1).set_trans(Tween.TRANS_SINE)
+		
 	if player.sandyActive == true:
 		set_HUD_alpha()
 		update_sand()
