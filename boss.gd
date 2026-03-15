@@ -3,11 +3,11 @@ extends CharacterBody2D
 @onready var s = $Sandevistan
 @onready var color_tween: Tween = null
 
-@export var speed = 0
-@export var base_speed = 1200
-@export var health = 100
+@export var speed: float = 0
+@export var base_speed: float  = 1200
+@export var health: int = 100
 
-var sandyAlreadyActive = false
+var sandyAlreadyActive: bool = false
 
 
 func _physics_process(delta: float):
@@ -45,7 +45,7 @@ func sandevistan_init():
 	s.emitting = true
 
 func sandevistan_rtrt(): # RTRT : Return to real time 
-	create_tween().tween_property($".", "speed", 0, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	create_tween().tween_property($".", "speed", 100, 0.1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	s.lifetime = 1.5
 	s.emitting = false
 
