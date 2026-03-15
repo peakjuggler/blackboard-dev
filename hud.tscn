@@ -6,6 +6,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_2m8tk"]
 font_names = PackedStringArray("LCDMono")
+subpixel_positioning = 0
 oversampling = 10.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_lhpp5"]

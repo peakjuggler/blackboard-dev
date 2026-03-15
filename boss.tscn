@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://tk2xmo06c0r6"]
+[gd_scene load_steps=10 format=3 uid="uid://tk2xmo06c0r6"]
 
 [ext_resource type="Script" path="res://boss.gd" id="1_wylna"]
+[ext_resource type="Texture2D" uid="uid://ctp86ujswnag2" path="res://lous.png" id="2_e8cy2"]
 [ext_resource type="Texture2D" uid="uid://dsbnyksj4xhub" path="res://thebigE.png" id="2_ougpq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mveq"]
@@ -37,8 +38,9 @@ script = ExtResource("1_wylna")
 
 [node name="ThebigE" type="Sprite2D" parent="."]
 position = Vector2(-16, -8)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_ougpq")
+scale = Vector2(0.2, 0.17)
+texture = ExtResource("2_e8cy2")
+offset = Vector2(66.785, -207.195)
 
 [node name="hitbox2" type="CollisionShape2D" parent="."]
 position = Vector2(0, 80)

@@ -6,7 +6,7 @@ var controller = Input.get_connected_joypads()
 func _ready() -> void:
 	pass
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if controller.size() == 1:
 		var move = Vector2(
 			Input.get_joy_axis(0, JOY_AXIS_RIGHT_X),

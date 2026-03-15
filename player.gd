@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @export_category("Movement")
-@export var base_acceleration: int = 25	# the acceleration that gets used to multiply boost power
+@export var base_acceleration: float = 25	# the acceleration that gets used to multiply boost power
 @export var base_top_speed: float = 1075.0
 @export var speed_penalty: float = 775.0
 
@@ -20,22 +20,22 @@ class_name Player
 @export var sandevistan_time_scale: float = 0.5
 
 var speed: float = 100.0
-var current_speed: int = 100	 # elusive penis variable
-var acceleration: int = base_acceleration	# game var acceleration
+var current_speed: float = 100	 # elusive penis variable
+var acceleration: float = base_acceleration	# game var acceleration
 
-var limitNum := 2
-var gearBefore := 2
+var limitNum: int = 2
+var gearBefore: int = 2
 
 # idk if its good practice to have the camera tied to the player like this but fuck it we ball
 @onready var playerCam := $Camera2D
 
-var defaultCamZoom := 0.40
-var boostCamValue := defaultCamZoom - ( boostLength / 243 ) # 243 is 3 to the fifth power
+var defaultCamZoom: float = 0.40
+var boostCamValue: float = defaultCamZoom - ( boostLength / pow(int(max_boost_legnth), 5))
 
-var canUseSandy := true
-var sandyActive := false
-var boostActive := false
-var penalty := false
+var canUseSandy: bool = true
+var sandyActive: bool = false
+var boostActive: bool = false
+var penalty: bool = false
 
 @onready var engine_time_tween: Tween = null
 @onready var camera_tween: Tween = null
@@ -64,7 +64,7 @@ func _physics_process(delta):
 	if ( Input.is_action_just_pressed("SANDY") && canUseSandy && !sandyActive && !boostActive ):
 		on_activateSandy()
 		
-	if ( Input.is_action_pressed("BOOST") && !sandyActive && penalty == false):
+	if ( Input.is_action_pressed("BOOST") && !sandyActive && penalty == false && current_speed > 950):
 		on_boost()
 				
 	if boostLength > max_boost_legnth:
@@ -78,9 +78,9 @@ func _physics_process(delta):
 	if ( Input.is_action_just_pressed("LMB") && boostActive == false ):
 		on_fire()
 		
-	if ( Input.is_action_just_released("BOOST") && !penalty ):
+	if ( (Input.is_action_just_released("BOOST") || current_speed <= 750) && !penalty ):
 		acceleration = base_acceleration
-		limitNum -= 1
+		limitNum = 2
 		speedDown.emit()
 		boostActive = false
 		$boostTrail.emitting = false
@@ -104,7 +104,7 @@ func _physics_process(delta):
 		if current_speed < 750: # handoff so it gradients
 			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 2
 		else:
-			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 1.5
+			boostLength += 0.0075 * ( current_speed / base_top_speed ) / 2.5 
 		#print("boost 000")
 		
 	if inputVector.x == 0 && inputVector.y == 0: # thinning out the soup because i don't want to make a state machine :(

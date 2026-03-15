@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://btblxeaw04316"]
+[gd_scene load_steps=6 format=3 uid="uid://btblxeaw04316"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_5xvi5"]
+[ext_resource type="PackedScene" uid="uid://dsc58s0t7vbbb" path="res://effects/enemy/explode.tscn" id="2_0g8qr"]
 [ext_resource type="Texture2D" uid="uid://bvxqq6ts0l3o6" path="res://gay.png" id="2_5rnwk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eh6vw"]
@@ -10,7 +11,9 @@ radius = 40.0
 radius = 56.0
 
 [node name="enemy" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_5xvi5")
+explosion_effect = ExtResource("2_0g8qr")
 
 [node name="tri" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
